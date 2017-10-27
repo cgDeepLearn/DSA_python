@@ -4,6 +4,7 @@
 """
 
 from graph import Graph, GraphAL
+from PriorityQueue_heap import PrioQueue
 
 
 def Kruskal(graph):
@@ -25,9 +26,31 @@ def Kruskal(graph):
             if len(mst) == vnum - 1:  # 构造完成
                 break
             rep, orep = reps[vi], reps[vj]
-            for i in range(vnum):  # 合并连通分量, 同意代表元
+            for i in range(vnum):  # 合并连通分量, 统一代表元
                 if reps[i] == orep:
                     reps[i] = rep
+    return mst
+
+
+def Prim(graph):
+    """
+    Prim算法
+    """
+
+    vnum = graph.vertex_num()
+    mst = [None] * vnum
+    cands = PrioQueue([(0, 0, 0)])  # 记录候选边(w, vi, vj)
+    count = 0
+    while count < vnum and not cands.is_empty():
+        w, u, v = cands.dequeue()  # 取当时的最短边
+        if mst[v]:  # 邻接顶点v已在mst，继续
+            continue
+        mst[v] = ((u, v), w)  # 记录新的MST边和顶点
+        count += 1
+        for vi, w in graph.out_edges(v):  # 考虑v的邻接顶点vi
+            if not mst[vi]:  # 如果vi不在mst则这条边是侯选边
+                cands.enqueue((w, v, vi))
+
     return mst
 
 
@@ -41,7 +64,10 @@ def main():
              [21, 11, inf, 14, 7, 0]]
     g5 = GraphAL(gmat5, inf)
     spt = Kruskal(g5)
+    prim_spt = Prim(g5)
     print(spt)
+    print(prim_spt)
+
 
 if __name__ == '__main__':
     main()
