@@ -66,7 +66,7 @@ class PrioQueue():
                 j += 1
             if item < elems[j]:  # item在三者中最小，找到了位置
                 break
-            elems[i] = elems[j]  # 跟新父节点数据
+            elems[i] = elems[j]  # 更新父节点数据
             i, j = j, 2 * j + 1
         elems[i] = item  # 把item更新到其对应位置
 

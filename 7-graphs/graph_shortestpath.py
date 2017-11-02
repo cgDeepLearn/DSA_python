@@ -50,7 +50,7 @@ def floyd(graph):
             for j in range(vnum):
                 if a[i][j] > a[i][k] + a[k][j]:
                     a[i][j] = a[i][k] + a[k][j]
-                    nvertex[i][j] = nvertex[i][k]
+                    nvertex[i][j] = nvertex[i][k]  # i-->j 经由k是最短的
 
     return (a, nvertex)
 
@@ -67,6 +67,8 @@ def main():
     paths1 = dijkstra(g, 1)
     print("start v0:", paths0)
     print("start v1:", paths1)
+    # 打印路径
+    #path(g, v0, v1)
     print("-" * 20)
     paths = floyd(g)
     print(paths[0])
