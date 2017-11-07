@@ -120,7 +120,7 @@ def inorder_nonrec(tree, proc):
 
 def postorder_nonrec(tree, proc):
     """非递归后序遍历
-    1--内曾循环找当前子树的最下最左结点，将其入栈后终止
+    1--内层循环找当前子树的最下最左结点，将其入栈后终止
     2--如果被访问结点是其父的左子结点，直接转到其右兄弟结点继续
     3--如被处理结点是其父的右子结点，设tree为None将迫使外层循环的下次迭代弹出并访问更上一层的结点
     """
@@ -128,7 +128,7 @@ def postorder_nonrec(tree, proc):
     while tree or not stk.is_empty():
         while tree:  # 下行循环，直到栈顶的两子树空
             stk.push(tree)
-            # 有左子树就取左入栈，因为有子树要先出栈
+            # 有左子树就取左入栈，因为右树要先出栈
             tree = tree.left if tree.left else tree.right
         tree = stk.pop()  # 访问栈顶
         proc(tree.data)
