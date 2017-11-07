@@ -34,6 +34,9 @@ class DictBinTree():
     def is_empty(self):
         return self._root is None
 
+    def get_root(self):
+        return self._root
+
     def search(self, key):
         bt = self._root
         while bt is not None:
